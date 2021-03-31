@@ -40,7 +40,7 @@ function ToggleComment( multiline )
         let l:idx += 1
         let l:ws_num = min([ l:ws_num, len(matchstr(getline(l:idx),"^\\s*")) ])
       endwhile
-
+      
       " check if the whole block is currently commented out
       let l:has_comment = 1
       let l:idx = l:line_lb - 1
