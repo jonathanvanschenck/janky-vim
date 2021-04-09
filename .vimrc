@@ -1,7 +1,7 @@
-" We don't still live in the 80s . . . 
+" we don't still live in the 80s . . . 
 set nocompatible
 filetype off
-
+color monokai-phoenix
 
 " ---------------
 "  Vundle config
@@ -25,43 +25,17 @@ Plugin 'Yggdroot/indentLine'
 " chords
 Plugin 'kana/vim-arpeggio'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
+" tags
+Plugin 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
 
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
+" ctrlp
+" Plugin 'ctrlpvim/ctrlp.vim'
 
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 
 
 " -----------------
@@ -84,11 +58,15 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 "  Indentation
 " -------------
 
-" turn on the plugin (handled above)
+" turn on the plugin
 " filetype plugin indent on
 
 " indent when moving to the next line
 set autoindent
+
+" get that sweet, sweet auto carriage returns when
+"  CRing on a {
+set smartindent
 
 " convert tabs to spaces
 set expandtab
@@ -145,16 +123,33 @@ set clipboard=unnamedplus
 " Add tab complete for nested structures
 set path+=**
 
+" Turn off dumb super searches
+set wildignore+=*/.git/*,*/node_modules/*,*/env/*,*.swp
+
 " show tab complete menu
 set wildmenu
 
 
 " ----------------
-"  Tags
+"  Gutentags 
 " ---------------
 
 " Bind the tag generated function to a vim key
-noremap <leader>tag :!ctags --recurse=yes --exclude=.git --exclude=node_modules/* --exclude=venv/*
+noremap <leader>tag :!ctags -R .<CR>:!vim -E -s -c "source $HOME/.vim/ctags/remove-require.vim" ./tags<CR>
+
+" Let gutentags auto find project roots
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+
+" Make GT reload happy
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_empy_buffer = 0
+
+" Ignore all `requires` as javascript variables
+" let g:gutentags_ctags_post_process_cmd = 'vim -E -s -c "q"'
+" let g:gutentags_ctags_post_process_cmd = "vim -E -s -c \"source /home/jonathan/.vim/ctags/remove-require.vim\""
 
 
 " ------------------
@@ -171,20 +166,28 @@ noremap <C-H> <C-W><C-H>
 noremap <C-K> <C-W><C-K>
 noremap <C-L> <C-W><C-L>
 
-" ----------
-"  Snippets
-" ----------
 
-nnoremap <leader>p :-1read $HOME/.vim/snippets/print.js<CR>f(la
+" -----------------
+"  Folding
+" -----------------
 
-" source ~/.vim/scripts/printify.vim
-" noremap <C-p> :call Printify()<CR>
+" See the after ftplugin section
 
+" Set folding to indent
+set foldmethod=indent
 
+" Only fold up to two
+" set foldnestmax=2
+
+" Start totally unfolded
+set foldlevelstart=99
 
 " -----------------
 "  NERDTree
 " -----------------
+
+" Set width to slightly smaller
+let g:NERDTreeWinSize=25
 
 " Start on load (but not in diff mode)
 if !(&diff)
@@ -206,6 +209,16 @@ autocmd BufWinEnter * silent NERDTreeMirror
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
+" ---------------------
+"  CtrlP Configuration
+" ---------------------
+
+" Override default
+" let g:ctrlp_map = '<c-p>'
+
+" Overrride command name
+" let g:ctrlp_cmd = 'CtrlP'
+
 
 
 
@@ -221,11 +234,62 @@ nnoremap <C-F5> :source $HOME/.vim/.vimrc<CR>
 nnoremap <F5> :tabdo e!<CR>
 
 
+" shortcut for help in a new tab
+nnoremap <leader>h :tab help 
+
 " Load arpeggio here
 call arpeggio#load()
+
+" print/console-log shortcut
+" function g:InsertLog()
+"   if &filetype ==# 'javascript'
+"     normal! iconsole.log()
+"     startinsert
+"   elseif &filetype ==# 'python'
+"     normal! iprint()
+"     startinsert
+"   endif
+" endfunction
+" 
+" nnoremap <C-B> <ESC>:call g:InsertLog()<CR>
+" inoremap <C-B> <ESC>:call g:InsertLog()<CR>
 
 " Insert lines above or below
 "  mnemonic: "Return Over" and "Return Below"
 Arpeggio nnoremap ro O<esc>j^
 Arpeggio nnoremap rb o<esc>k^
+
+
+" Close tabs and write them
+function g:CloseTab()
+  if tabpagenr('$') == 1
+    q
+  else
+    tabclose
+  endif
+endfunction
+
+function g:WriteCloseTab()
+  w
+  if tabpagenr('$') == 1
+    q
+  else
+    tabclose
+  endif
+endfunction
+"  mnemonic "Quit Tab" and "Write and quit Tab" and "Open Tab"
+Arpeggio nnoremap qt :call<space>g:CloseTab()<CR>
+Arpeggio nnoremap wt :call<space>g:WriteCloseTab()<CR>
+Arpeggio nnoremap ot :tabe<space>
+
+
+" ----------
+"  Snippets
+" ----------
+
+nnoremap <leader>p :-1read $HOME/.vim/snippets/print.js<CR>f(la
+
+" source ~/.vim/scripts/printify.vim
+" noremap <C-p> :call Printify()<CR>
+
 

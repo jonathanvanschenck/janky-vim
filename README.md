@@ -27,6 +27,10 @@ Also, get yourself some sweet (ctags action)[https://andrew.stwrt.ca/posts/vim-c
 ```bash
  $ sudo apt install ctags
 ```
+Then modify the path in the `--options=/path/to/.vim/ctags/modern-js` and run:
+```bash
+$ cp .ctags.example ~/.ctags
+```
 For which you'll need to periodically run:
 ```bash
  $ ctags --recurse=yes --exclude=.git --exclude=node_modules/* --exclude=venv/*
@@ -39,3 +43,11 @@ Use vimdiff for git:
  $ git config --global diff.tool vimdiff
  $ git config --global --add difftool.prompt false # suppress confirmation
 ```
+
+Also add this to your `~/.config/git/ignore` file:
+```
+*.swp
+tags
+tags.lock
+```
+which will allow gutentags to make tags EVERYWHERE and they won't get tracked by git
