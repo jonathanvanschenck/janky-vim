@@ -4,13 +4,35 @@ syntax on
 set number
 set relativenumber
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-" filetype plugin indent on
+filetype plugin indent on
 set autoindent
 set smartindent
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-autocmd FileType python setlocal shiftwidth=2 softtabstop=2
+autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+autocmd FileType json setlocal shiftwidth=4 softtabstop=4
+let g:vim_json_conceal=0
+let g:indentLine_color_term = 239
+let g:indentLine_char = '▏'
+let s:matching_bracket = {
+    \  "(" : ")",
+    \  "{" : "}",
+    \  "[" : "]",
+    \ }
+function g:OpenBrackets()
+  let l:char = getline('.')[col('.')-1]
+  if ((match(l:char, "\[]})\]") > -1) || (match(l:char, "\[[{(\]") > -1))
+    execute printf("normal ci%s\<CR>\<ESC>", l:char)
+    " execute ":<"
+    execute "normal O "
+  else
+    return
+  endif
+  execute ":startreplace"
+endfunction
+nnoremap <C-b> :call<space>g:OpenBrackets()<CR>
+inoremap <C-b> <ESC>:call<space>g:OpenBrackets()<CR>
 let s:comment_map = {
     \   "c": '\/\/',
     \   "cpp": '\/\/',
@@ -100,6 +122,15 @@ vnoremap <C-_> <esc> :call ToggleComment(1)<CR>
 noremap <C-e> 10<C-e>
 noremap <C-y> 10<C-y>
 
+vnoremap J j
+vnoremap K k
+
+nnoremap <leader>h :tab help 
+
+autocmd FileType javascript nnoremap <leader>ae i() => {}<ESC>i
+autocmd FileType javascript nnoremap <leader>aaw ciw() => {}<ESC>F)Pf{a
+autocmd FileType javascript vnoremap <leader>aa c() => {}<ESC>F)Pf{a
+autocmd FileType javascript nnoremap <leader>t :!npm run test<CR>
 
 set clipboard=unnamedplus
 

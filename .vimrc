@@ -46,6 +46,15 @@ filetype plugin indent on    " required
 syntax on
 
 
+" ---------------
+"  Spelling
+" ---------------
+
+autocmd FileType latex setlocal spell spelllang=en_us
+autocmd FileType markdown setlocal spell spelllang=en_us
+hi clear SpellBad
+hi SpellBad cterm=underline
+
 " ----------------
 "  Numbering
 " ---------------
@@ -85,11 +94,37 @@ let g:indentLine_color_term = 239
 " Change character
 let g:indentLine_char = '▏'
 
-" Correct for json file types
-" let g:indentLine_enabled = 1
-" let g:vim_json_syntax_conceal = 0
-" autocmd Filetype json let g:indentLine_setConceal = 0
-autocmd Filetype json :IndentLinesDisable
+
+" Force json to show quotes, but still allow indentlines
+let g:vim_json_conceal=0
+
+
+" -------------
+"  Bracket Operations
+" -------------
+
+" Open up brackets
+let s:matching_bracket = {
+    \  "(" : ")",
+    \  "{" : "}",
+    \  "[" : "]",
+    \ }
+function g:OpenBrackets()
+  let l:char = getline('.')[col('.')-1]
+  if ((match(l:char, "\[]})\]") > -1) || (match(l:char, "\[[{(\]") > -1))
+    execute printf("normal ci%s\<CR>\<ESC>", l:char)
+    " execute ":<"
+    execute "normal O "
+  else
+    return
+  endif
+  execute ":startreplace"
+endfunction
+" mnemonic "Bracket Open"
+nnoremap <C-b> :call<space>g:OpenBrackets()<CR>
+inoremap <C-b> <ESC>:call<space>g:OpenBrackets()<CR>
+
+
 
 " -----------------
 "  Commenting
@@ -103,11 +138,33 @@ vnoremap <C-_> <esc> :call ToggleComment(1)<CR>
 
 
 " ---------------
-"  Screen Motion
+"  Motion
 " ---------------
 
+" Screen motion - move faster
 noremap <C-e> 10<C-e>
 noremap <C-y> 10<C-y>
+
+" Split screen (Why is this not the default?!)
+set splitright
+set splitbelow
+
+" Simplify split navigation
+noremap <C-J> <C-W><C-J>
+noremap <C-H> <C-W><C-H>
+noremap <C-K> <C-W><C-K>
+noremap <C-L> <C-W><C-L>
+
+
+" In visual line mode, it is easy to press J not j,
+"  but J is irritatingly maped to "join lines", 
+"  which is almost never what I want to do. So just
+"  map J to j in visual mode. If I want to "join lines"
+"  I can just use gJ in visual mode which does the same
+"  thing. Even better, you don't even need to be in visual
+"  mode to gJ!
+vnoremap J j
+vnoremap K k
 
 " -------------
 "  Clipboard
@@ -155,16 +212,6 @@ let g:gutentags_generate_on_empy_buffer = 0
 " ------------------
 "  Split Navigation
 " ------------------
-
-" Why is this not the default?!
-set splitright
-set splitbelow
-
-" Simplify split navigation
-noremap <C-J> <C-W><C-J>
-noremap <C-H> <C-W><C-H>
-noremap <C-K> <C-W><C-K>
-noremap <C-L> <C-W><C-L>
 
 
 " -----------------
@@ -293,3 +340,18 @@ nnoremap <leader>p :-1read $HOME/.vim/snippets/print.js<CR>f(la
 " noremap <C-p> :call Printify()<CR>
 
 
+
+" ---------------------------
+"   Node.js specific helpers
+" ---------------------------
+
+" empty arrow function
+autocmd FileType javascript nnoremap <leader>ae i() => {}<ESC>i
+
+" arrow around word
+autocmd FileType javascript nnoremap <leader>aaw ciw() => {}<ESC>F)Pf{a
+
+" arrow around visual selection
+autocmd FileType javascript vnoremap <leader>aa c() => {}<ESC>F)Pf{a
+
+autocmd FileType javascript nnoremap <leader>t :!npm run test<CR>

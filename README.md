@@ -51,3 +51,10 @@ tags
 tags.lock
 ```
 which will allow gutentags to make tags EVERYWHERE and they won't get tracked by git
+
+
+# .vimrc.reduced setup
+```bash
+git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
+```
