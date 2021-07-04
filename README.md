@@ -21,6 +21,16 @@ Vundle is your friend
 ```bash
  $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
+Which can be finished off with the Vim command:
+```vim
+ :PluginInstall
+ :VimspectorInstall debugpy
+```
+Then:
+```bash
+ $ cd bundle/vimspector
+ $ python3 install_gadget.py --force-enable-node
+```
 
 
 Also, get yourself some sweet (ctags action)[https://andrew.stwrt.ca/posts/vim-ctags/]:

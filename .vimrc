@@ -1,7 +1,7 @@
-" we don't still live in the 80s . . . 
+" we don't still live in the 80s . . .
 set nocompatible
 filetype off
-color monokai-phoenix
+color mp-hack
 
 " ---------------
 "  Vundle config
@@ -32,6 +32,9 @@ set statusline+=%{gutentags#statusline()}
 " JS improved syntax
 Plugin 'pangloss/vim-javascript'
 
+" Debugging Tools
+Plugin 'puremourning/vimspector'
+
 " ctrlp
 " Plugin 'ctrlpvim/ctrlp.vim'
 
@@ -48,6 +51,8 @@ filetype plugin indent on    " required
 " Get that sweet, sweet coloration
 syntax on
 
+" Show trailing whitepace and spaces before a tab:
+" autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/ containedin=ALL
 
 " ---------------
 "  Spelling
@@ -138,6 +143,13 @@ source ~/.vim/scripts/vcomments.vim
 nnoremap <C-_> :call ToggleComment(0)<CR>
 inoremap <C-_> <esc> :call ToggleComment(0)<CR>gi
 vnoremap <C-_> <esc> :call ToggleComment(1)<CR>
+
+" -------------------
+"  Normalize spacing
+" -------------------
+
+" source ~/.vim/scripts/prettify.vim
+" nnoremap <leader>p :call g:PrettifySpaces()<CR>
 
 
 " ---------------
@@ -232,6 +244,26 @@ let g:javascript_plugin_jsdoc = 1
 " let g:javascript_conceal_arrow_function       = "⇒"
 
 
+" -----------------
+"  Vimspector
+" -----------------
+" let g:vimspector_enable_mappings = 'HUMAN'
+nmap <Leader>dd  <Plug>VimspectorContinue                     "   When debugging, continue. Otherwise start debugging.
+nmap <Leader>de  <Plug>VimspectorStop                         "   Stop debugging.
+nmap <Leader>dr  <Plug>VimspectorRestart                      "   Restart debugging with the same configuration.
+nmap <Leader>dp  <Plug>VimspectorPause                        "   Pause debuggee.
+nmap <Leader>db  <Plug>VimspectorToggleBreakpoint             "   Toggle line breakpoint on the current line.
+nmap <Leader>dcb <Plug>VimspectorToggleConditionalBreakpoint  "   Toggle conditional line breakpoint on the current line.
+nmap <Leader>dfb <Plug>VimspectorAddFunctionBreakpoint        "   Add a function breakpoint for the expression under cursor
+nmap <Leader>dtc <Plug>VimspectorRunToCursor                  "   Run to Cursor
+nmap <Leader>dj  <Plug>VimspectorStepOver                     "   Step Over
+nmap <Leader>dl  <Plug>VimspectorStepInto                     "   Step Into
+nmap <Leader>dk  <Plug>VimspectorStepOut                      "   Step out of current function scope
+
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
 
 " -----------------
 "  Folding
@@ -257,7 +289,7 @@ let g:NERDTreeWinSize=25
 
 " Start on load (but not in diff mode)
 if !(&diff)
-  autocmd VimEnter * NERDTree | wincmd p
+  " autocmd VimEnter * NERDTree | wincmd p
 endif
 
 " Exit Vim if NERDTree is the only window left.
@@ -353,7 +385,7 @@ Arpeggio nnoremap ot :tabe<space>
 "  Snippets
 " ----------
 
-nnoremap <leader>p :-1read $HOME/.vim/snippets/print.js<CR>f(la
+" nnoremap <leader>p :-1read $HOME/.vim/snippets/print.js<CR>f(la
 
 " source ~/.vim/scripts/printify.vim
 " noremap <C-p> :call Printify()<CR>
