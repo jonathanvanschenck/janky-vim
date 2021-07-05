@@ -148,10 +148,6 @@ hi Todo            ctermfg=15    ctermbg=233   cterm=bold  " White on Black
 hi Error           ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
 hi ExtraWhitespace ctermfg=NONE  ctermbg=81    cterm=NONE  " Deep Pink
 
-function! s:pythonMonokaiPhoenixFiletype()
-  hi pyBoolean            ctermfg=130  ctermbg=None  cterm=None " Purplish Grey
-  hi pyNone               ctermfg=130  ctermbg=None  cterm=None " Purplish Grey
-endfunction
 
 function! s:javascriptMonokaiPhoenixFiletype()
   " vim-javascript syntax
@@ -166,7 +162,7 @@ function! s:javascriptMonokaiPhoenixFiletype()
   hi jsArgsObj             ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue
   hi jsImportContainer     ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
   hi jsExportContainer     ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
-  hi jsCommentTodo         ctermfg=103   ctermbg=NONE  cterm=NONE  " ???
+  " hi jsCommentTodo         ctermfg=103   ctermbg=NONE  cterm=NONE  " ???
   hi jsLineComment         ctermfg=67    ctermbg=NONE  cterm=italic" Air Force Blue
   hi jsEnvComment          ctermfg=67    ctermbg=NONE  cterm=italic" Air Force Blue
   hi jsCvsTag              ctermfg=67    ctermbg=NONE  cterm=italic" Air Force Blue
@@ -229,6 +225,60 @@ function! s:javascriptMonokaiPhoenixFiletype()
   hi javaScriptFunctionCallWithArgs       ctermfg=112   ctermbg=NONE  cterm=NONE  " Las Palmas
   hi javaScriptFunctionCallWithoutArgs    ctermfg=112   ctermbg=NONE  cterm=NONE  " Las Palmas
   hi javaScriptArrowFunction              ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue
+
+endfunction
+
+function! s:pythonMonokaiPhoenixFiletype()
+  " python-syntax syntax
+  " --------------------------
+  hi pythonStatement       ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
+  hi pythonRepeat          ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
+  hi pythonConditional     ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
+  hi pythonException       ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
+  hi pythonRaiseFromStatement ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink 
+  hi pythonClassVar        ctermfg=81    ctermbg=NONE  cterm=italic" Turquoise Blue
+  hi pythonInclude         ctermfg=81    ctermbg=NONE  cterm=italic" Turquoise Blue
+  hi pythonImport          ctermfg=81    ctermbg=NONE  cterm=italic" Turquoise Blue
+  hi pythonOperator        ctermfg=197   ctermbg=NONE  cterm=NONE  " Deep Pink
+  hi pythonError           ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonDecorator       ctermfg=112   ctermbg=NONE  cterm=italic" Las Palmas
+  hi pythonDottedName      ctermfg=112   ctermbg=NONE  cterm=NONE  " Las Palmas
+  " hi pythonDot             ctermfg=112   ctermbg=NONE  cterm=NONE  " Las Palmas
+  hi pythonRun             ctermfg=81    ctermbg=NONE  cterm=italic" Turquoise Blue
+  hi pythonCoding          ctermfg=81    ctermbg=NONE  cterm=italic" Turquoise Blue
+  hi pythonBytesEscape     ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue    
+  hi pythonUniEscape       ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue
+  hi pythonRawEscape       ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue
+  hi pythonString          ctermfg=185   ctermbg=NONE  cterm=NONE  " Wild Rice
+  hi pythonFString         ctermfg=185   ctermbg=NONE  cterm=NONE  " Wild Rice
+  hi pythonRawString       ctermfg=185   ctermbg=NONE  cterm=NONE  " Wild Rice
+  hi pythonRawFString      ctermfg=185   ctermbg=NONE  cterm=NONE  " Wild Rice
+  hi pythonRawBytes        ctermfg=185   ctermbg=NONE  cterm=NONE  " Wild Rice
+  hi pythonStrFormatting   ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue (% formattting)
+  hi pythonStrFormat       ctermfg=81    ctermbg=NONE  cterm=NONE  " Turquoise Blue (.format)
+  " hi pythonStrInterpRegion
+  " hi pythonStrTemplate
+  " hi pythonDocTest
+  " hi pythonDocTest2
+  hi pythonOctError       ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonHexError       ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonBinError       ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonNumberError    ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonOctError       ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonBinError       ctermfg=15    ctermbg=88    cterm=NONE  " White on Carmine
+  hi pythonNumber         ctermfg=141   ctermbg=NONE  cterm=NONE  " Purplish Grey
+  hi pythonFloat          ctermfg=141   ctermbg=NONE  cterm=NONE  " Purplish Grey
+  hi pythonHexNumber      ctermfg=141   ctermbg=NONE  cterm=NONE  " Purplish Grey
+  hi pythonOctNumber      ctermfg=141   ctermbg=NONE  cterm=NONE  " Purplish Grey
+  hi pythonBinNumber      ctermfg=141   ctermbg=NONE  cterm=NONE  " Purplish Grey
+  " hi pythonNone      
+  " hi pythonBoolean   
+  " hi pythonSingleton 
+  " hi pythonBuiltinObj
+  " hi pythonBuiltinObj
+  " hi pythonBuiltinFunc
+  " hi pythonBuiltinType
+  " hi pythonExClass
 
 endfunction
 

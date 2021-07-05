@@ -32,6 +32,9 @@ set statusline+=%{gutentags#statusline()}
 " JS improved syntax
 Plugin 'pangloss/vim-javascript'
 
+" python improved syntax
+Plugin 'vim-python/python-syntax'
+
 " Debugging Tools
 Plugin 'puremourning/vimspector'
 
@@ -243,6 +246,12 @@ let g:javascript_plugin_jsdoc = 1
 " let g:javascript_conceal_super                = "Ω"
 " let g:javascript_conceal_arrow_function       = "⇒"
 
+
+" -----------------
+"  python syntax
+" -----------------
+let g:python_highlight_space_errors = 0
+let g:python_highlight_all = 1
 
 " -----------------
 "  Vimspector
