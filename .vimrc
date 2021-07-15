@@ -91,11 +91,17 @@ set smartindent
 " convert tabs to spaces
 set expandtab
 
+
+
 " define width for >> and << commands
 set shiftwidth=2
-
-" what does this do?
 set softtabstop=2
+function g:SetTabs( value )
+  execute printf("setlocal shiftwidth=%d", a:value)
+  execute printf("setlocal softtabstop=%d", a:value)
+endfunction
+nnoremap <leader>st4 :call g:SetTabs(4)<CR>
+nnoremap <leader>st2 :call g:SetTabs(2)<CR>
 
 
 " Reset color
