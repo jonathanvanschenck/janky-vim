@@ -35,8 +35,10 @@ Plugin 'pangloss/vim-javascript'
 " python improved syntax
 Plugin 'vim-python/python-syntax'
 
-" Debugging Tools
-Plugin 'puremourning/vimspector'
+if (has('python3'))
+  " Debugging Tools
+  Plugin 'puremourning/vimspector'
+endif
 
 " ctrlp
 " Plugin 'ctrlpvim/ctrlp.vim'
