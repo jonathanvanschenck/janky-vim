@@ -324,6 +324,13 @@ autocmd BufWinEnter * silent NERDTreeMirror
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
+
+" -------------------
+"  SQL
+" -------------------
+" stop sql plugin from remaping <C-c>
+let g:ftplugin_sql_omni_key = '<C-q>'
+
 " ---------------------
 "  CtrlP Configuration
 " ---------------------
