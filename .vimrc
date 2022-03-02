@@ -26,7 +26,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'kana/vim-arpeggio'
 
 " tags
-Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 
 " JS improved syntax
