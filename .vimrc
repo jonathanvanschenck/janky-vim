@@ -35,6 +35,9 @@ Plugin 'pangloss/vim-javascript'
 " python improved syntax
 Plugin 'vim-python/python-syntax'
 
+" mermaidi syntax
+Plugin 'mracos/mermaid.vim'
+
 if (has('python3'))
   " Debugging Tools
   Plugin 'puremourning/vimspector'
