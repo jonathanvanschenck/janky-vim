@@ -38,14 +38,19 @@ Plugin 'vim-python/python-syntax'
 " mermaidi syntax
 Plugin 'mracos/mermaid.vim'
 
-if (has('python3'))
-  " Debugging Tools
-  Plugin 'puremourning/vimspector'
-endif
+" if (has('python3'))
+"   " Debugging Tools
+"   Plugin 'puremourning/vimspector'
+" endif
 
 " ctrlp
 " Plugin 'ctrlpvim/ctrlp.vim'
 
+" Surrounding
+Plugin 'tpope/vim-surround'
+
+" Git tooling
+Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -433,3 +438,11 @@ autocmd FileType javascript nnoremap <leader>aaw ciw() => {}<ESC>F)Pf{a
 autocmd FileType javascript vnoremap <leader>aa c() => {}<ESC>F)Pf{a
 
 autocmd FileType javascript nnoremap <leader>t :!npm run test<CR>
+
+" ---------------------------
+"   Git tooling
+" ---------------------------
+
+
+
+

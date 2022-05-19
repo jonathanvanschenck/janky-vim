@@ -32,6 +32,10 @@ Then:
  $ python3 install_gadget.py --force-enable-node
 ```
 
+Modify git so that it will always decorate your output:
+```bash
+git config --global log.decorate true
+```
 
 Also, get yourself some sweet (ctags action)[https://andrew.stwrt.ca/posts/vim-ctags/]:
 ```bash
